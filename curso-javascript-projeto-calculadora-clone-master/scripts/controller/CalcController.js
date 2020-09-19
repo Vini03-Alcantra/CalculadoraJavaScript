@@ -37,21 +37,31 @@ class CalcController{
         return this._operation[this._operation.length - 1];
     }
 
+    setLastOperation(value){
+        this._operation[this._operation.length - 1] = value;
+    }
+
     isOperator(value){
         return (['+', '-', '*', '%', '/'].indexOf(value) > -1);
     }
 
     addOperation(value){
+
+        console.log('A', isNaN(this.getLastOperation()));
         if (isNaN(this.getLastOperation())) {
             if (this.isOperator(value)) {
-                this._operation[this._operation.length - 1] = value;
-            }else{
+                this.setLastOperation(value);
+            }else if (isNaN(value)) {
                 console.log(value);
+            }else{
+                this._operation.push(value)       ;
             }
         }else{
             let newValue = this.getLastOperation().toString() + value.toString();
-            this._operation.push(newValue);
+            this.setLastOperation(parseInt(newValue));
         }
+
+        console.log(this._operation);
     }
 
     setError(){
@@ -85,6 +95,9 @@ class CalcController{
             this.clearEntry();
             break;        
 
+        case 'ponto':
+            this.addOperation('.');
+            break    
             case '0':
             case '1':
             case '2': 

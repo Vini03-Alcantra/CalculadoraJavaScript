@@ -45,26 +45,31 @@ class CalcController{
         return (['+', '-', '*', '%', '/'].indexOf(value) > -1);
     }
 
-    addOperation(value){
-        console.log('A', value, isNaN(this.getLastOperation()))
+    pushOperation(value){
+        this._operation.push(value);
+
+        if(this._operation.length > 2){
+            console.log(this._operation);
+        }
+    }
+
+    addOperation(value){        
         if (isNaN(this.getLastOperation())) {                           
             if (this.isOperator(value)) {                
                 this.setLastOperation(value);
             }else if (isNaN(value)) {
                 console.log(value);
             }else{                
-                this._operation.push(value)       ;
+                this.pushOperation(value)
             }
         }else{
             if (this.isOperator(value)) {
-                this._operation.push(value);
+                this.pushOperation(value)
             } else {
                 let newValue = this.getLastOperation().toString() + value.toString();
                 this.setLastOperation(parseInt(newValue));
             }                                    
-        }
-
-        console.log(this._operation);
+        }        
     }
 
     setError(){

@@ -33,10 +33,25 @@ class CalcController{
         this._operation.pop();
     }
 
-    addOperation(value){
-        this._operation.push(value);
+    getLastOperation(){
+        return this._operation[this._operation.length - 1];
+    }
 
-        console.log(this._operation);
+    isOperator(value){
+        return (['+', '-', '*', '%', '/'].indexOf(value) > -1);
+    }
+
+    addOperation(value){
+        if (isNaN(this.getLastOperation())) {
+            if (this.isOperator(value)) {
+                
+            }else{
+
+            }
+        }else{
+            let newValue = this.getLastOperation().toString() + value.toString();
+            this._operation.push(newValue);
+        }
     }
 
     setError(){
@@ -65,6 +80,9 @@ class CalcController{
             break;
         case 'porcento':
             this.clearAll();
+            break;
+        case 'igual':
+            this.clearEntry();
             break;
         case 'igual':
             this.clearEntry();

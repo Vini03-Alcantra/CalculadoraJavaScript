@@ -53,6 +53,10 @@ class CalcController{
         }
     }
 
+    setLastNumberToDisplay(){
+        
+    }
+
     calc(){
         let last = this._operation.pop();
         let result = eval(this._operation.join(""));
@@ -74,6 +78,8 @@ class CalcController{
             } else {
                 let newValue = this.getLastOperation().toString() + value.toString();
                 this.setLastOperation(parseInt(newValue));
+
+                this.setLastNumberToDisplay();  
             }                                    
         }        
     }

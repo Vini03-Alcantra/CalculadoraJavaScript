@@ -44,9 +44,9 @@ class CalcController{
     addOperation(value){
         if (isNaN(this.getLastOperation())) {
             if (this.isOperator(value)) {
-                
+                this._operation[this._operation.length - 1] = value;
             }else{
-
+                console.log(value);
             }
         }else{
             let newValue = this.getLastOperation().toString() + value.toString();
@@ -67,26 +67,23 @@ class CalcController{
             this.clearEntry();
             break;
         case 'soma':
-            this.clearAll();
+            this.addOperation('+')
             break;
         case 'subtracao':
-            this.clearEntry();
+            this.addOperation('-');
             break;
         case 'divisao':
-            this.clearAll();
+            this.addOperation('/');
             break;
         case 'multiplicacao':
-            this.clearEntry();
+            this.addOperation('*');
             break;
         case 'porcento':
-            this.clearAll();
+            this.addOperation('%');
             break;
         case 'igual':
             this.clearEntry();
-            break;
-        case 'igual':
-            this.clearEntry();
-            break;
+            break;        
 
             case '0':
             case '1':

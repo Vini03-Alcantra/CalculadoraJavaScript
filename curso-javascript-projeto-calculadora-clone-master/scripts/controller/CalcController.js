@@ -70,6 +70,8 @@ class CalcController{
         let last = this._operation.pop();
         let result = eval(this._operation.join(""));
         this._operation = [result, last]
+
+        this.setLastNumberToDisplay();
     }
 
     addOperation(value){        

@@ -72,14 +72,21 @@ class CalcController{
     }
 
     calc(){
-        let last = this._operation.pop();
+        let last = '';
+
+        if(this._operation.length > 3){
+            last = this._operation.pop();
+        }
+
         let result = eval(this._operation.join(""));
 
         if(last == '%'){
             result /=  100;
             this._operation = [result];
         }else{
-            this._operation = [result, last]
+            this._operation = [result];
+
+            if(last) this._operation.push(last);
         }        
 
         this.setLastNumberToDisplay();
@@ -136,7 +143,7 @@ class CalcController{
             this.addOperation('%');
             break;
         case 'igual':
-            this.clearEntry();
+            this.calc();
             break;        
 
         case 'ponto':

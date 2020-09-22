@@ -1,6 +1,10 @@
 class CalcController{
 
     constructor(){
+
+        this._lastNumber = '';
+        this._lastOperator = '';
+
         this._operation = [];
         this._locale = 'pt-BR';
         this._displayCalcEl = document.querySelector("#display");
@@ -55,30 +59,62 @@ class CalcController{
         if(this._operation.length > 3){
             this.calc();
         }
+        
+    }
+
+    getLastItem(isOperator = true){
+        let lastItem;
+
+        for (let i = this._operation.length - 1; i > 0; i--) {
+            if (this.isOperator(this._operation[i]) == isOperator) {
+                lastItem = this._operation[i];
+                break;
+            }
+            
+        }
+
+        return lastItem;
     }
 
     setLastNumberToDisplay(){
-        let lastNumber;
-
-        for(let i = this._operation.length-1; i >= 0; i--){
-            if (!this.isOperator(this._operation[i])) {
-                lastNumber = this._operation[i];
-                break;
-            }
-        }
+        let lastNumber = this.getLastItem(false);        
 
         if(!lastNumber) lastNumber = 0;
-        this.displayCalc = lastNumber;
+        // if (this._operation.isEmpty) {
+        //     lastNumber = 0;
+        // } else {
+        //     if (condition) {
+                
+        //     } else {
+                
+        //     }
+        // }
+
+        this.displayCalc = lastNumber;        
+    }
+
+    getResult(){
+        return eval(this._operation.join(""));
     }
 
     calc(){
         let last = '';
 
+        this._lastOperator = this.getLastItem();
+
         if(this._operation.length > 3){
             last = this._operation.pop();
+            this.lastNumber = this.getResult();
         }
 
-        let result = eval(this._operation.join(""));
+        if (this._operation.length == 3) {
+            this._lastNumber = this.getLastItem(false);
+        }
+
+        console.log('lastOperator', this._lastOperator);
+        console.log('lastNumber', this._lastNumber);
+        
+        let result = this.getResult();
 
         if(last == '%'){
             result /=  100;
@@ -145,10 +181,10 @@ class CalcController{
         case 'igual':
             this.calc();
             break;        
-
         case 'ponto':
             this.addOperation('.');
-            break    
+            break;    
+
             case '0':
             case '1':
             case '2': 

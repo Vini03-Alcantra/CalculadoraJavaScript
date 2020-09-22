@@ -81,6 +81,8 @@ class CalcController{
             }else{                
                 this.pushOperation(value)
             }
+
+            this.setLastNumberToDisplay();
         }else{
             if (this.isOperator(value)) {
                 this.pushOperation(value)

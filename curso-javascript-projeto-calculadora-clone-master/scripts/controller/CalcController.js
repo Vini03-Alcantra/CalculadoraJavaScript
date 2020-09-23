@@ -349,7 +349,7 @@ class CalcController{
         return this._dateEl.innerHTML;
     }
 
-    set displayDate(value){
+    set displayDate(value){        
         return this._dateEl.innerHTML = value;
     }
 
@@ -358,6 +358,10 @@ class CalcController{
     }
 
     set displayCalc(value){
+        if (value.length > 10) {
+            this.setError();
+            return false;
+        }
         this._displayCalcEl.innerHTML = value;
     }
 
